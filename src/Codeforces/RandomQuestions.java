@@ -641,10 +641,48 @@ public class RandomQuestions
 	}
 	
 	
+	private static void c1971()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t --> 0)
+		{
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			int c = sc.nextInt();
+			int d = sc.nextInt();
+			
+			boolean cLies = false;
+			boolean dLies = false;
+			int min = Math.min(a, b);
+			for(int i=min; i<=Math.max(a, b); i++)
+			{
+				if(i == c)
+				{
+					cLies = true;
+				}
+				if(i == d)
+				{
+					dLies = true;
+				}
+			}
+			if((cLies && dLies) || (!cLies && !dLies))
+			{
+				System.out.println("No");
+			}
+			else
+			{
+				System.out.println("YES");
+			}
+		}
+		sc.close();
+	}
+	
+	
 	public static void main(String[] args) 
 	{
 		
-		System.out.println(3^4^3);
+		c1971();
 	}
 
 }

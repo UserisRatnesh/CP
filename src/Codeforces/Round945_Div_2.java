@@ -52,66 +52,13 @@ public class Round945_Div_2
 				arr[i] = sc.nextInt();
 			}
 			
-			bHelper(arr, n);
-			
 			
 		}
 		sc.close();
 	}
 	
-	private static void bHelper(int[] arr, int n)
-	{
-		int k = 1;
-		while(k<n)
-		{
-			int or = 0;
-			for(int i=0; i<k; i++)
-			{
-				or = or | arr[i];
-			}
-			
-			int tempOr = 0; 
-			
-			for(int i=0; i<n; i++)
-			{
-				int countK = 0;
-				
-				int j = i;
-				while(countK<k && j<n)
-				{
-					tempOr = tempOr | arr[j];
-					
-					countK++;
-					j++;
-				}
-				
-				tempOr = 0;
-			}
-			
-			if(tempOr == or)
-			{
-				System.out.println(k);
-				return;
-			}
-			
-			k++;
-		}
-		
-		System.out.println(n);
-		return;
-		
-	}
-
 	
-	private static void c()
-	{
-		
-	}
 	
-	private static void cHelper()
-	{
-		
-	}
 
 
 	public static void main(String[] args) 
