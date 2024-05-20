@@ -718,11 +718,58 @@ public class RandomQuestions
 		sc.close();
 	}
 	
+	private static void a1951()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0)
+		{
+			int n = sc.nextInt();
+			String s = sc.next();
+			
+			int one = 0;
+			for(int i=0; i<n; i++)
+			{
+				if("1".equals(s.charAt(i)+""))
+				{
+					one++;
+				}
+			}
+			
+			if(one % 2 == 0)
+			{
+				if(one == 2)
+				{
+					// check adjacent or not
+					int i = s.indexOf("1");
+					int j = s.lastIndexOf("1");
+					if(i+1 == j)
+					{
+						System.out.println("NO");
+					}
+					else
+					{
+						System.out.println("YES");
+					}
+				}
+				else
+				{
+					System.out.println("YES");
+				}
+			}
+			else
+			{
+				System.out.println("NO");
+			}
+		}
+		sc.close();
+	}
+	
 	
 	public static void main(String[] args) 
 	{
 		
-		c1971_Another();
+		a1951();
 	}
 
 }
