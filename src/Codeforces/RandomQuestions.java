@@ -3,9 +3,6 @@ package Codeforces;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.math.BigInteger;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 class Pair<F,S>
@@ -769,7 +766,7 @@ public class RandomQuestions
 	public static void main(String[] args) 
 	{
 		
-		a1951();
+		System.out.println("Ratnesh");
 	}
 
 }
