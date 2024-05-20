@@ -678,11 +678,51 @@ public class RandomQuestions
 		sc.close();
 	}
 	
+	private static void c1971_Another()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t --> 0)
+		{
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			int c = sc.nextInt();
+			int d = sc.nextInt();
+			
+			// walk around the clock from 1 to 12
+			// if any of the two red or blue comes first then not intersect else intersect
+			// red -> a,b
+			// blue -> c,d
+			String s = "";
+			for(int i=1; i<=12; i++)
+			{
+				if(i == a || i == b)
+				{
+					s += "r";
+				}
+				if(i == c || i == d)
+				{
+					s+= "b";
+				}
+			}
+			
+			if(s.equals("rbrb") || s.equals("brbr")) 
+			{
+				System.out.println("YES");
+			}
+			else
+			{
+				System.out.println("NO");
+			}
+		}
+		sc.close();
+	}
+	
 	
 	public static void main(String[] args) 
 	{
 		
-		c1971();
+		c1971_Another();
 	}
 
 }
