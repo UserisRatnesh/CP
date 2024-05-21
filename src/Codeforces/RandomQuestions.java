@@ -336,74 +336,7 @@ public class RandomQuestions
 			return true;
 		}
 	}
-	
-	private static void c1921()
-	{
-		Scanner sc = new Scanner(System.in);
-		int t = sc.nextInt();
-		while(t != 0)
-		{
-			int n = sc.nextInt();
-			long f = sc.nextLong();
-			long a = sc.nextLong();
-			long b = sc.nextLong();
-			long[] arr = new long[n];
-			for(int i=0; i<n; i++)
-			{
-				arr[i] = sc.nextLong();
-			}
-			System.out.println(helper1921c(n, f, a, b, arr));;
-			t--;
-		}
-	}
-	
-	private static boolean helper1921c(int n, long f, long a, long b, long[] arr)
-	{
-		boolean on = false;
-		float charge = 0f;
-		
-		
-		// for i=0;
-		
-		charge += b/2;
-		on = !on;
-		
-		
-		for(int i=1; i<n; i++)
-		{
-			if(!on) // initially off
-			{
-				// on
-				charge += b/2;
-				
-				// send the message 
-				
-				// make the decision to keep it on or off
-				
-			}
-			
-			// whether to keep it on or not
-			float totalA = a*(arr[i]-arr[i-1]);
-			if(totalA <= b/2f)
-			{
-				// keep it on
-				charge += totalA;
-				
-			}
-			else
-			{
-				// off
-				charge += b/2;
-				on = !on;
-			}
-		}
-		
-		if(charge > f)
-		{
-			return false;
-		}
-		return true;
-	}
+
 	
 	private static void b1945()
 	{
@@ -763,10 +696,68 @@ public class RandomQuestions
 	}
 	
 	
+	private static void c1921()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t --> 0)
+		{
+			int n = sc.nextInt();
+			long f = sc.nextLong();
+			long a = sc.nextLong();
+			long b = sc.nextLong();
+			long[] arr = new long[n];
+			
+			int prev = -1;
+			for(int i=0; i<n; i++)
+			{
+				arr[i] = sc.nextLong();
+				if(prev == -1)
+				{
+					
+					Long on = (arr[i] - 0)*a;
+					if(on < b)
+					{
+						f -= on ;
+					}
+					else
+					{
+						f -= b;
+					}
+				}
+				else
+				{
+					Long on = (arr[i] - arr[prev])*a;
+					if(on < b)
+					{
+						f -= on;
+					}
+					else
+					{
+						f -= b;
+					}
+				}
+				prev = i;
+			}
+			
+			if(f <= 0)
+			{
+				System.out.println("NO");
+			}
+			else
+			{
+				System.out.println("YES");
+			}
+			
+		}
+		sc.close();
+	}
+	
+	
 	public static void main(String[] args) 
 	{
 		
-		System.out.println("Ratnesh");
+		c1921();
 	}
 
 }
