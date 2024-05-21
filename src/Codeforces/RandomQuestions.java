@@ -1,7 +1,9 @@
 package Codeforces;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.math.BigInteger;
 
 
@@ -714,28 +716,11 @@ public class RandomQuestions
 				arr[i] = sc.nextLong();
 				if(prev == -1)
 				{
-					
-					Long on = (arr[i] - 0)*a;
-					if(on < b)
-					{
-						f -= on ;
-					}
-					else
-					{
-						f -= b;
-					}
+					f -= Math.min(a*arr[i], b);
 				}
 				else
 				{
-					Long on = (arr[i] - arr[prev])*a;
-					if(on < b)
-					{
-						f -= on;
-					}
-					else
-					{
-						f -= b;
-					}
+					f -= Math.min(a*(arr[i]-arr[i-1]), b);
 				}
 				prev = i;
 			}
@@ -754,10 +739,118 @@ public class RandomQuestions
 	}
 	
 	
+	private static void b1918()
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t -- >0)
+        {
+            int n = sc.nextInt();
+            int[] a = new int[n];
+            for(int i=0; i<n; i++)
+            {
+                a[i] = sc.nextInt();
+            }
+            
+            int[] b = new int[n];
+            for(int i=0; i<n; i++)
+            {
+                b[i] = sc.nextInt();
+            }
+            
+            mergeSort(a, b, 0,n-1);
+            
+            for(int i=0; i<n; i++)
+            {
+            	System.out.print(a[i]+" ");
+            }
+            System.out.println();
+            for(int i=0; i<n; i++)
+            {
+            	System.out.print(b[i]+" ");
+            }
+            System.out.println();
+            
+            
+        }
+        sc.close();
+    }
+    
+    private static int mergeSort(int [] a,int[] b, int si, int li)
+    {
+    	if(si == li)
+    	{
+    		return 0 ;
+    	}
+    	
+        int mid = (si+li)/2;
+        
+        int count = 0;
+        
+        count += mergeSort(a, b, mid+1, li);
+        count += mergeSort(a, b, si, mid);
+        
+        count += merge(a, b, si, li, mid);
+        
+        return count;
+    }
+    
+    private static int merge(int[] a,int[] b, int si, int li, int mid)
+    {
+    	int n = li-si+1;
+    	int count = 0;
+    	
+    	int index = 0;
+    	int[] list = new int[n];
+    	int[] listb = new int[n];
+    	int indexb = 0;
+    	int left = si;
+    	int right = mid + 1;
+    	while(left <= mid && right <=li)
+    	{
+    		if(a[left] <= a[right])
+    		{
+    			list[index++] = a[left];
+    			listb[indexb++] = b[left];
+    			left++;
+    			
+    		}
+    		else
+    		{
+    			list[index++] = a[right];
+    			listb[indexb++] = b[right];
+    			right++;
+    			count += (mid-left+1);
+    		}
+    	}
+    	
+    	while(left <= mid)
+    	{
+    		list[index++] = a[left];
+    		listb[indexb++] = b[left];
+    		left++;
+    	}
+    	
+    	while(right <= li)
+    	{
+    		list[index++] = a[right];
+    		listb[indexb++] = b[right];
+    		right++;
+    	}
+    	
+    	for(int i=si; i<=li; i++)
+    	{
+    		a[i] = list[i-si];
+    		b[i] = listb[i-si];
+    	} 
+    	
+    	return count;
+    }
+	
 	public static void main(String[] args) 
 	{
 		
-		c1921();
+		b1918();
 	}
 
 }
