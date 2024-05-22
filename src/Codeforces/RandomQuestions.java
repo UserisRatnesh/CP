@@ -2,15 +2,17 @@ package Codeforces;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.math.BigInteger;
 
-
-class Pair<F,S>
+// first make F comparable then use it to compare
+class Pair<F extends Comparable<F> ,S> implements Comparable<Pair<F, S>>
 {
 	private F first;
 	private S second;
+	
 	
 	public Pair(F first, S second)
 	{
@@ -36,6 +38,11 @@ class Pair<F,S>
 	public void setSecond(S second)
 	{
 		this.second = second;
+	}
+	
+	public int compareTo(Pair<F, S> other)
+	{
+		return this.first.compareTo(other.first);
 	}
 }
 
@@ -776,6 +783,43 @@ public class RandomQuestions
         sc.close();
     }
     
+	private static void b1918_2nd()
+	{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t -- >0)
+        {
+            int n = sc.nextInt();
+            Pair<Integer, Integer>[] ab = new Pair[n];
+            
+            for(int i=0; i<n; i++)
+            {
+            	ab[i] = new Pair<>(0, 0);
+            	ab[i].setFirst(sc.nextInt());
+            }
+            for(int i=0; i<n; i++)
+            {
+            	ab[i].setSecond(sc.nextInt());
+            }
+            
+            Arrays.sort(ab);
+            
+            for(int i=0; i<n; i++)
+            {
+            	System.out.print(ab[i].getFirst()+" ");
+            }
+            System.out.println();
+            for(int i=0; i<n; i++)
+            {
+            	System.out.print(ab[i].getSecond()+" ");
+            }
+            System.out.println();
+            	
+            
+        }
+        sc.close();
+	}
+	
     private static int mergeSort(int [] a,int[] b, int si, int li)
     {
     	if(si == li)
@@ -850,7 +894,7 @@ public class RandomQuestions
 	public static void main(String[] args) 
 	{
 		
-		b1918();
+		b1918_2nd();
 	}
 
 }
