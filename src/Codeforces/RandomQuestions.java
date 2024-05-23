@@ -3,6 +3,7 @@ package Codeforces;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.math.BigInteger;
@@ -43,6 +44,61 @@ class Pair<F extends Comparable<F> ,S> implements Comparable<Pair<F, S>>
 	public int compareTo(Pair<F, S> other)
 	{
 		return this.first.compareTo(other.first);
+	}
+}
+
+class Triple<F extends Comparable<F> , S extends Comparable<S>, T> implements Comparable<Triple<F, S, T>>
+{
+	private F first;
+	private S second;
+	private T third;
+	
+	
+	public Triple(F first, S second, T third)
+	{
+		this.first=  first;
+		this.second = second;
+		this.third  = third;
+	}
+	
+	public F getFirst()
+	{
+		return this.first;
+	}
+	
+	public S getSecond() 
+	{
+		return this.second;
+	}
+	
+	public T getThird()
+	{
+		return this.third;
+	}
+	
+	public void setFirst(F first)
+	{
+		this.first = first;
+	}
+	
+	public void setSecond(S second)
+	{
+		this.second = second;
+	}
+	
+	public void setThird(T third)
+	{
+		this.third = third;
+	}
+	
+	public int compareTo(Triple<F, S, T> other)
+	{
+		int ans = this.first.compareTo(other.first);
+		if(ans == 0)
+		{
+			ans = other.second.compareTo(this.second);
+		}
+		return ans;
 	}
 }
 
@@ -931,10 +987,43 @@ public class RandomQuestions
     }
     
 	
+    private static void A1_1970()
+    {
+    	Scanner sc = new Scanner(System.in);
+    	String s = sc.next();
+    	int n = s.length();
+    	List<Triple<Integer, Integer, Character>> list = new ArrayList<>();
+
+        int prefixSum = 0;
+        for (int i = 0; i < n; i++) 
+        {
+            char c = s.charAt(i);
+            list.add(new Triple<>(prefixSum, i, c));
+            if (c == '(') {
+                prefixSum++;
+            } else {
+                prefixSum--;
+            }
+        }
+
+        Collections.sort(list);
+
+        StringBuilder ans = new StringBuilder();
+        for (Triple<Integer, Integer, Character> triple : list) {
+            ans.append(triple.getThird());
+        }
+
+        System.out.println(ans.toString());
+
+    	
+    	sc.close();
+    }
+    
+    
 	public static void main(String[] args) 
 	{
 		
-		D1971();
+		A1_1970();
 	}
 
 }
