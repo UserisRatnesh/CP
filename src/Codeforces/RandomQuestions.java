@@ -890,11 +890,51 @@ public class RandomQuestions
     	
     	return count;
     }
+    
+    
+    
+    // Not done yet
+    private static void D1971()
+    {
+    	Scanner sc = new Scanner(System.in);
+    	int t = sc.nextInt();
+    	while(t --> 0)
+    	{
+    		String s = sc.next();
+    		int n = s.length();
+    		
+    		int cut = 0;
+    		boolean first0To1 = false;
+    		for(int i=0; i<n-1; i++)
+    		{
+    			// count transition from 1 to 0, since it will require cut
+    			if(s.charAt(i) == '1' && s.charAt(i+1) == '0')
+    			{
+    				cut++;
+    			}
+    			else if(s.charAt(i) == '0' && s.charAt(i+1) == '1')
+    			{
+    				if(!first0To1)
+    				{
+    					first0To1 = true;
+    				}
+    				else 
+    				{
+    					cut++;
+    				}
+    			}
+    		}
+    		System.out.println(cut+1);
+    		
+    	}
+    	sc.close();
+    }
+    
 	
 	public static void main(String[] args) 
 	{
 		
-		b1918_2nd();
+		D1971();
 	}
 
 }
