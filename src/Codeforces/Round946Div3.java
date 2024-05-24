@@ -3,6 +3,7 @@ package Codeforces;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,68 +78,81 @@ public class Round946Div3
         		arr[i] = sc.nextInt();
         	}
         	
-        	List<List<Integer>> triples = new ArrayList<>();
-        	
-        	List<Integer> triple = new ArrayList<>();
-        	triple.add(arr[0]);
-        	triple.add(arr[1]);
-        	triple.add(arr[2]);
-        	triples.add(triple);
-        	
+        	HashMap<List<Integer>, List<Integer>> triples = new HashMap<>();
         	int ans = 0;
         	
-        	for(int i=1; i<n-2; i++)
+        	for(int i=0; i<3; i++)
         	{
-        		int a = arr[i];
-        		int b = arr[i+1];
-        		int c = arr[i+2];
-        		for(List<Integer> list : triples)
+        		
+        		// count all beautiful pairs having i th element different
+        		for(int j=0; j<n-2; j++)
+            	{
+            		List<Integer> triple = new ArrayList<>();
+            		triple.add(arr[j]);
+            		triple.add(arr[j+1]);
+            		triple.add(arr[j+2]);
+            		int ithElement = triple.get(i);
+            		triple.remove(i);
+            		List<Integer> value = triples.getOrDefault(triple, new ArrayList<>());
+            		value.add(ithElement);
+        			triples.put(triple, value);
+            	}
+        		
+        		// iterate over the each entry of map
+        		for(Map.Entry<List<Integer>, List<Integer>> entry : triples.entrySet())
         		{
-        			int equalCount = 0;
+        			List<Integer> list = entry.getValue();
+        			List<Integer> tempList = new ArrayList<>();
         			
-        			for(int index=0; index<3; index++)
+        			int count = 1;
+        			Collections.sort(list);
+        			for(int j=1; j<list.size(); j++)
         			{
-        				if(list.get(index) == arr[i+index])
+        				if(list.get(j).equals(list.get(j-1)))
         				{
-        					equalCount++;
+        					count++;
+        				}
+        				else
+        				{
+        					tempList.add(count);
+        					count = 1;
         				}
         			}
-        			if(equalCount == 2)
+        			
+        			tempList.add(count);
+        			if(tempList.size() < 2)
         			{
-        				ans++;
+        				continue;
         			}
+        			int sum = 0;
+        			for(Integer x : tempList)
+        			{
+        				sum += x;
+        			}
+        			
+        			sum = sum*(sum-1)/2;
+        			ans += sum;
+        			for(Integer x : tempList)
+        			{
+        				ans -= (x*(x-1)/2);
+        			}
+        			
+        			
         		}
         		
-        		List<Integer> list = new ArrayList<>();
-        		list.add(a);
-        		list.add(b);
-        		list.add(c);
-        		triples.add(list);
+        		triples.clear();
         	}
         	
         	System.out.println(ans);
-        	
         }
         sc.close();
 	}
 	
-	private static void d()
-	{
-		Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-        while(t -- >0)
-        {
-        	int n = sc.nextInt();
-        	String s = sc.next();
-        	
-        }
-        sc.close();
-	}
 	
 	
 	public static void main(String[] args) 
 	{
-		d();
+		c();
 
 	}
 
