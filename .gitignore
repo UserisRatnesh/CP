@@ -3,3 +3,5 @@
 /.settings/
 /.projects/
 *.class
+/.DS_Store/
+/.src/.DS_Store/
