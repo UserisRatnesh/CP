@@ -157,10 +157,9 @@ public class Round_948_Div_2
     }
 	
 	
-	
 	public static void main(String[] args) 
 	{
-		b();
+		
 	}
 
 }
