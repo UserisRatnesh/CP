@@ -111,7 +111,6 @@ public class EducationalRound_166_Div_2
 	public static void main(String[] args) 
 	{
 		
-		c();
 	}
 
 }
