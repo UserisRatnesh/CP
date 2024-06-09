@@ -126,6 +126,9 @@ public class Round_950_Div_2 {
         }
       }
 
+      // Below code return true if none of the element matches the last value of d
+      // array
+      // And if it return true then f is set to be false;
       if (Arrays.stream(b).noneMatch(value -> value == d[m - 1])) {
         f = false;
       }
