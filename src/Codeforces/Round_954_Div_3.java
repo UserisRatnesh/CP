@@ -1,9 +1,8 @@
 package Codeforces;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 public class Round_954_Div_3 
 {
@@ -22,19 +21,9 @@ public class Round_954_Div_3
 			int min = Math.min(x1,  Math.min(x2, x3));
 			int max = Math.max(x1, Math.max(x2, x3));
 
-			if(x1 != min && x1 != max)
-			{
-				System.out.println(x1-min + max-x1);
-			}
-			else if(x2 != min && x2 != max)
-			{
-				System.out.println(x2-min + max-x2);
-			}
-			else
-			{
-				System.out.println(x3-min + max-x3);
-			}
+			System.out.println(max-min);
 		}
+		sc.close();
 	}
 
 	private static void b()
@@ -91,7 +80,6 @@ public class Round_954_Div_3
 
 	}
 
-
 	private static void c()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -101,38 +89,34 @@ public class Round_954_Div_3
 			int n = sc.nextInt();
 			int m = sc.nextInt();
 			StringBuilder s = new StringBuilder(sc.next());
-			sc.nextLine();
+
 			int[] arr = new int[m];
+			TreeSet<Integer> set = new TreeSet<>();
 			for(int i=0; i<m; i++)
 			{
-				arr[i] = sc.nextInt();
+				set.add(sc.nextInt());
 			}
 
-			String[] c = sc.next().split("");
+			char[] c = sc.next().toCharArray();
 
-			Arrays.sort(arr);
 			Arrays.sort(c);
 
 			int i = 0;
 			int ci = 0;
-			while(i < m && ci < m)
+			while(!set.isEmpty())
 			{
-				int index = arr[i];
-				s.setCharAt(index-1, c[ci++].charAt(0));
-
-				while(i+1 < m && arr[i+1] == index)
-				{
-					i++;
-				}
-				i++;
-			}	
+				int index = set.first();
+				set.remove(index);
+				s.setCharAt(index-1, c[ci++]);
+			}
 
 			System.out.println(s.toString());
 		}
 		sc.close();
 	}
 
-	private static void d() {
+	private static void d() 
+	{
 	    Scanner sc = new Scanner(System.in);
 
 	    int t = sc.nextInt();
@@ -202,7 +186,6 @@ public class Round_954_Div_3
 
 	public static void main(String[] args) 
 	{
-		d();
 
 	}
 
