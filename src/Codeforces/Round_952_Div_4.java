@@ -1,14 +1,12 @@
 package Codeforces;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
 
 public class Round_952_Div_4
 {
-
+	
 	private static void a()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -46,6 +44,67 @@ public class Round_952_Div_4
 		sc.close();
 	}
 
+	private static void c()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t --> 0)
+		{
+			int n = sc.nextInt();
+			Long[] arr = new Long[n];
+			for(int i=0; i<n; i++)
+			{
+				arr[i] = sc.nextLong();
+
+			}
+
+			long prefSum = 0;
+			HashSet<Long> set = new HashSet<>();
+			int ans = 0;
+
+			for(int i=0; i<n; i++)
+			{
+				prefSum += arr[i];
+				set.add(arr[i]);
+				if(set.contains(prefSum/2) && prefSum %2 == 0)
+				{
+					ans++;
+				}
+
+			}	
+			System.out.println(ans);
+
+		}
+		sc.close();
+	}
+	
+	private static void cBetter()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t --> 0)
+		{
+			int n = sc.nextInt();
+			int ans = 0;
+			int maxTillNow = 0;
+			long prefSum = 0;
+			for(int i=0; i<n; i++)
+			{
+				int input = sc.nextInt();
+				maxTillNow = Math.max(maxTillNow, input);
+				prefSum += input;
+				
+				if(prefSum - maxTillNow == maxTillNow)
+				{
+					ans++;
+				}
+			}
+			System.out.println(ans);
+
+		}
+		sc.close();
+	}
+	
 	private static void d()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -102,42 +161,6 @@ public class Round_952_Div_4
 		sc.close();
 	}
 
-
-	private static void c()
-	{
-		Scanner sc = new Scanner(System.in);
-		int t = sc.nextInt();
-		while(t --> 0)
-		{
-			int n = sc.nextInt();
-			Long[] arr = new Long[n];
-			for(int i=0; i<n; i++)
-			{
-				arr[i] = sc.nextLong();
-
-			}
-
-			long prefSum = 0;
-			HashSet<Long> set = new HashSet<>();
-			int ans = 0;
-
-			for(int i=0; i<n; i++)
-			{
-				prefSum += arr[i];
-				set.add(arr[i]);
-				if(set.contains(prefSum/2) && prefSum %2 == 0)
-				{
-					ans++;
-				}
-
-			}	
-			System.out.println(ans);
-
-		}
-		sc.close();
-	}
-
-
 	private static void e()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -145,49 +168,37 @@ public class Round_952_Div_4
 		while(t --> 0)
 		{
 			int x = sc.nextInt();
-            int y = sc.nextInt();
-            int z = sc.nextInt();
+			int y = sc.nextInt();
+			int z = sc.nextInt();
             long k = sc.nextLong();
-            System.out.println(maxLocations(x, y, z, k));
-
+            
+            // a -> x
+            // b -> y
+            // c -> z  c = k/a*b
+            long ans = 0;
+            for(int a=1; a<=x; a++)
+            {
+            	for(int b=1; b<=y; b++)
+            	{
+            		long c = 2001;
+            		if(k % (a*b) == 0)
+            		{
+            			c = k/(a*b);
+            		}
+            		
+            		if(c <= z)
+            		{
+            			long tempAns = (x-a+1);
+            			tempAns *= (y-b+1);
+            			tempAns *= (z-c+1);
+            			ans = Math.max(ans, tempAns);
+            		}
+            	}
+            }
+            System.out.println(ans);
 		}
 		sc.close();
 	}
-	
-	private static List<int[]> countFactors(long k) {
-        List<int[]> factors = new ArrayList<>();
-        for (int a = 1; (long) a * a * a <= k; a++) {
-            if (k % a == 0) {
-                long ka = k / a;
-                for (int b = a; (long) b * b <= ka; b++) {
-                    if (ka % b == 0) {
-                        int c = (int) (ka / b);
-                        factors.add(new int[]{a, b, c});
-                        if (a != b) factors.add(new int[]{a, c, b});
-                        if (b != c) factors.add(new int[]{b, a, c});
-                        if (c != a) factors.add(new int[]{b, c, a});
-                        if (a != c) factors.add(new int[]{c, a, b});
-                        if (b != a) factors.add(new int[]{c, b, a});
-                    }
-                }
-            }
-        }
-        return factors;
-    }
-
-    private static int maxLocations(int x, int y, int z, long k) {
-        int maxCount = 0;
-        for (int[] dimensions : countFactors(k)) {
-            int a = dimensions[0];
-            int b = dimensions[1];
-            int c = dimensions[2];
-            if (a <= x && b <= y && c <= z) {
-                maxCount = Math.max(maxCount, (x - a + 1) * (y - b + 1) * (z - c + 1));
-            }
-        }
-        return maxCount;
-    }
-
 	
 
 	public static void main(String[] args) 
