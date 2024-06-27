@@ -1,7 +1,5 @@
 package Codeforces;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Round_953_div_2 
@@ -53,7 +51,6 @@ public class Round_953_div_2
 		sc.close();
 	}
 
-
 	private static long bHelper(long n, long a, long b)
 	{
 		if (a > b)
@@ -97,73 +94,59 @@ public class Round_953_div_2
 				nums[i-1] = i;
 			}
 			
-			permute(n, k);
+			long req = k;
+			int left = 0;
+			int right = n-1;
+			
+			while(left < right)
+			{
+				int swapK = 2*Math.abs((nums[left]-nums[right]));
+				
+				if(swapK <= req)
+				{
+					req -= swapK;
+					
+					// do swap
+					int temp = nums[left];
+					nums[left] = nums[right];
+					nums[right] = temp;
+					left++;
+					right--;
+				}
+				else
+				{
+					left++;
+				}
+				
+				if(req == 0)
+				{
+					break;
+				}
+				
+			}
+
+			if(req == 0)
+			{
+				System.out.println("YES");
+				for(int i=0; i<n; i++)
+				{
+					System.out.print(nums[i]+" ");
+				}
+				System.out.println();
+			}
+			else
+			{
+				System.out.println("NO");
+			}
+			
+			
 			
 		}
 		sc.close();
 	}
 
-	public static void permute(int n, long k) {
-
-		List<Integer> list = new ArrayList<>();
-		for (int i = 1; i <= n; i++) {
-			list.add(i);
-		}
-
-		List<List<Integer>> ans = new ArrayList<>();
-
-		if(permuteHelper(list, new ArrayList<>(), k , ans))
-		{
-			System.out.println("YES");
-			for(List<Integer> l : ans)
-			{
-				for(Integer x : l)
-				{
-					System.out.print(x+" ");
-				}
-			}
-			System.out.println();
-		}
-		else
-		{
-			System.out.println("No");
-		}
-	}
-
-	private static boolean permuteHelper(List<Integer> numsList, List<Integer> list, long k , List<List<Integer>> ans) 
-	{
-		
-		int n = numsList.size();
-		if (n == 0) {
-
-			long sum = 0;
-			for(int i=1; i<=list.size(); i++)
-			{
-				sum = Math.abs(list.get(i-1) - i);
-			}
-			
-			if(sum == k)
-			{
-				ans.add(list);
-				return true;
-			}
-			return false;
-		}
-
-		for (int i = 0; i < n; i++) {
-			int ele = numsList.get(i);
-			List<Integer> newList = new ArrayList<>(list);
-			newList.add(ele);
-			List<Integer> newNumList = new ArrayList<>(numsList);
-			newNumList.remove(i);
-			if(permuteHelper(newNumList, newList, k, ans))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
+	
+	
 
 	public static void main(String[] args) 
 	{
