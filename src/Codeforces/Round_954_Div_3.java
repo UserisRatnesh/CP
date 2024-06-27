@@ -117,76 +117,61 @@ public class Round_954_Div_3
 
 	private static void d() 
 	{
-	    Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 
-	    int t = sc.nextInt();
-	    while (t-- > 0) {
-	        int n = sc.nextInt();
-	        String str = sc.next();
-	        
-	        if (n - 2 <= 0) {
-	            long ans = 0;
-	            for (int i = 0; i < n; i++) {
-	                ans += Long.parseLong(str.charAt(i) + "");
-	            }
-	            System.out.println(ans);
-	            continue;
-	        }
+		int t = sc.nextInt();
+		while (t-- > 0) 
+		{
+			int n = sc.nextInt();
+			String str = sc.next();
 
-	        if (n - 2 == 1) {
-	            long start = Long.parseLong(str.charAt(0) + "");
-	            long end = Long.parseLong(str.charAt(n - 1) + "");
-	            if (start == 0 || end == 0) {
-	                System.out.println(0);
-	                continue;
-	            }
-	        }
+			System.out.println(dHelper(n, str));
+		}
 
-	        // Find if a single zero then return zero
-	        boolean hasZero = false;
-	        for (int i = 0; i < n; i++) {
-	            long val = Long.parseLong(str.charAt(i) + "");
-	            if (val == 0) {
-	                System.out.println(0);
-	                hasZero = true;
-	                break;
-	            }
-	        }
-	        if (hasZero) continue;
-
-	        // Find the min pair value
-	        long minPair = Long.parseLong(str.substring(0, 2));
-	        int minPStart = 0;
-	        int minPEnd = 1;
-	        for (int i = 0; i < n - 1; i++) {
-	            long pair = Long.parseLong(str.substring(i, i + 2));
-	            if (pair < minPair) {
-	                minPair = pair;
-	                minPStart = i;
-	                minPEnd = i + 1;
-	            }
-	        }
-
-	        long ans = 0;
-	        for (int i = 0; i < n; i++) {
-	            if (i < minPStart || i > minPEnd) {
-	                ans += Long.parseLong(str.charAt(i) + "");
-	            }
-	        }
-
-	        ans += minPair;
-
-	        System.out.println(ans);
-	    }
-	    
-	    sc.close();
+		sc.close();
+	}
+	
+	private static long dHelper(int n, String s)
+	{
+		if(n == 2)	return Long.parseLong(s);
+		
+		long ans = Integer.MAX_VALUE;
+		// Iterate over each possible pair
+		for(int i=0; i<n-1; i++) // O(n)
+		{
+			long currAns = 0;
+			
+			long pair = Long.parseLong(s.substring(i,i+2));
+			
+			// Iterate from 0 to i-1 and add all values except one
+			// if zero is found return zero
+			for(int j=0; j<i; j++) // O(i)
+			{
+				long value = s.charAt(j)-'0';
+				if(value == 0)	return 0;
+				else if(value != 1)	currAns+= value;
+			}
+			
+			for(int j=i+2; j<n; j++) // O(n-i)
+			{
+				long value = s.charAt(j)-'0';
+				if(value == 0)	return 0;
+				else if(value != 1)	currAns+= value;
+			}
+			
+			if(pair != 1)	currAns += pair;
+			if(currAns == 0)	currAns = 1;
+			ans = Math.min(currAns, ans);
+		}
+		
+		return ans;
 	}
 
 
 
 	public static void main(String[] args) 
 	{
-
+		d();
 	}
 
 }
