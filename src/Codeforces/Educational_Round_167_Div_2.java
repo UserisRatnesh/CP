@@ -1,13 +1,6 @@
 package Codeforces;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.Arrays;
 
 
 public class Educational_Round_167_Div_2 
@@ -32,13 +25,46 @@ public class Educational_Round_167_Div_2
 		}
 		sc.close();
 	}
-
+	
+	private static void b()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0)
+		{
+			String a = sc.next();
+			String b = sc.next();
+			
+			int l1 = a.length();
+			int l2 = b.length();
+			
+			int ans = l1 + l2;
+			
+			// b = x + c + y
+			// i tells the length of prefix x and start of c
+			for(int i=0; i<l2; i++)
+			{
+				int j = i;
+				for(int c = 0; c<l1; c++)
+				{
+					if(j < l2 && a.charAt(c) == b.charAt(j))	j++;
+				}
+				
+				ans = Math.min(ans,  l1+l2-(j-i));
+			}
+			
+			System.out.println(ans);
+			
+			
+		}
+		sc.close();
+	}
 	
 
 
 	public static void main(String[] args) 
 	{
-		
+		b();
 	}
 
 }
