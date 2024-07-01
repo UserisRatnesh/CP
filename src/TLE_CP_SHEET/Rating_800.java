@@ -1,5 +1,6 @@
 package TLE_CP_SHEET;
 
+import java.util.TreeMap;
 import java.util.Scanner;
 
 public class Rating_800 
@@ -106,10 +107,123 @@ public class Rating_800
 		sc.close();
 	}
 	
+	private static void A1896()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0)
+		{
+			int n = sc.nextInt();
+			int first = sc.nextInt();
+			int min = first;
+			for(int i=1; i<n; i++)
+			{
+				int input = sc.nextInt();
+				min = Math.min(input, min);
+			}
+			
+			if(min == first)	System.out.println("YES");
+			else	System.out.println("NO");
+		}
+		sc.close();
+	}
+	
+	
+	private static void A1890()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0)
+		{
+			int n = sc.nextInt();
+			
+			TreeMap<Integer, Integer> map = new TreeMap<>();
+			for(int i=0; i<n; i++)
+			{
+				int input = sc.nextInt();
+				map.put(input, map.getOrDefault(input, 0)+1);
+			}
+			
+			if(map.size() > 2)	System.out.println("NO");
+			else if(map.size() == 1)	System.out.println("Yes");
+			else 
+			{
+				int first = map.get(map.firstKey());
+				int second = map.get(map.lastKey());
+				if(Math.floor(n/2) ==  first || Math.floor(n/2) == second) System.out.println("YES");
+				else System.out.println("NO");
+			}
+		}
+		sc.close();
+	}
+	
+	
+	private static void A1881()
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0)
+		{
+			int n = sc.nextInt();
+			int m = sc.nextInt();
+			String x = sc.next();
+			String s = sc.next();
+			// what is the maximum answer possible
+			// 5
+			boolean isSubstr = false;
+			int ans = 0;
+			for(int i=0; i<=5; i++)
+			{
+				if(x.contains(s))
+				{
+					isSubstr = true;
+					ans = i;
+					break;
+				}
+				
+				x += x;
+			}
+			
+			if(isSubstr)	System.out.println(ans);
+			else	System.out.println(-1);
+			
+		}
+		sc.close();
+	}
+	
+	private static boolean bSubtringOfa(String a, String b)
+	{
+		int n1 = a.length();
+		int n2 = b.length();
+		if(n1 < n2)	return false;
+		
+		int i1 = 0;
+		int i2 = 0;
+		while(i1 < n1 && i2 < n2)
+		{
+			int c1 = a.charAt(i1);
+			int c2 = b.charAt(i2);
+			if(c1 == c2)
+			{
+				i1 ++;
+				i2 ++;
+				while(i1 < n1 && i2 < n2)
+				{
+					if(a.charAt(i1) != b.charAt(i2))	return false;
+					i1++;
+					i2++;
+				}
+			}
+			else i1++;
+		}
+		
+		if(i2 == n2)	return true;
+		return false;
+	}
 	
 	public static void main(String[] args) 
 	{
-		A1899();
+		A1881();
 	}
 
 }
