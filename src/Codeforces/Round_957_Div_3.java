@@ -35,21 +35,18 @@ public class Round_957_Div_3
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
         while (t-- > 0) {
-            int n = sc.nextInt();
+        	int n = sc.nextInt();
             int k = sc.nextInt();
             int[] arr = new int[k];
+
+            long ans = 0;
             for (int i = 0; i < k; i++) {
                 arr[i] = sc.nextInt();
             }
+
             Arrays.sort(arr);
-            long ans = 0;
             for (int i = 0; i < k - 1; i++) {
-                if (arr[i] == 1) {
-                    ans += 1;
-                } else {
-                    ans += 1;
-                    ans += 2 * (arr[i] - 1);
-                }
+                ans += 2 * arr[i] - 1;
             }
 
             System.out.println(ans);
@@ -76,6 +73,57 @@ public class Round_957_Div_3
 
         }
         sc.close();
+    }
+	
+	
+	public static void d() {
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            int k = sc.nextInt();
+
+            String s = sc.next();
+            char[] arr = s.toCharArray();
+
+            if (isPossible(arr, n, m, k)) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
+            sc.close();
+        } 
+    }
+	
+	
+	public static boolean isPossible(char[] arr, int n, int m, int k) {
+        int[] dp = new int[n + 1];
+        for (int i = n - 1; i >= 0; i--) {
+            if (arr[i] == 'C') {
+                dp[i] = Integer.MAX_VALUE;
+            } else if (arr[i] == 'W') {
+                dp[i] = dp[i + 1] == Integer.MAX_VALUE ? dp[i + 1] : dp[i + 1] + 1;
+            } else {
+                int min = Integer.MAX_VALUE;
+                for (int j = 1; j <= m; j++) {
+                    if (i + j <= n) {
+
+                        min = Math.min(dp[i + j], min);
+
+                    }
+
+                }
+                dp[i] = min;
+            }
+        }
+
+        for (int i = 0; i < m; i++) {
+            if (dp[i] <= k) {
+                return true;
+            }
+        }
+        return false;
     }
 
 	
