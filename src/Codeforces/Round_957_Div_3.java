@@ -96,7 +96,7 @@ public class Round_957_Div_3
         } 
     }
 	
-	
+	// DP approach
 	public static boolean isPossible(char[] arr, int n, int m, int k) {
         int[] dp = new int[n + 1];
         for (int i = n - 1; i >= 0; i--) {
@@ -123,6 +123,51 @@ public class Round_957_Div_3
                 return true;
             }
         }
+        return false;
+    }
+	
+	// Greedy approach
+	public static boolean isPossibleGreedy(char[] arr, int n, int m, int k) {
+
+        int l = 0;
+        int swimmed = 0;
+        while (l != n + 1) {
+            if (arr[l] == 'C')
+                return false;
+            if (arr[l] == 'W') {
+                swimmed++;
+                l++;
+                continue;
+            }
+            if (arr[l] == 'L') {
+                boolean jump = false;
+                for (int i = Math.min(l + m, n + 1); i > l; i--) {
+                    if (arr[i] == 'L') {
+                        l = i;
+                        jump = true;
+                        break;
+                    }
+                }
+
+                if (jump)
+                    continue;
+
+                for (int i = Math.min(l + m, n + 1); i > l; i--) {
+                    if (arr[i] == 'W') {
+                        l = i;
+                        jump = true;
+                        break;
+                    }
+                }
+
+                if (!jump)
+                    return false;
+
+            }
+        }
+
+        if (l > n && swimmed <= k)
+            return true;
         return false;
     }
 
