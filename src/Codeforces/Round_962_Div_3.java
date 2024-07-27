@@ -63,57 +63,48 @@ public class Round_962_Div_3 {
 	
 	
 	public static void C() {
+		
 		Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int q = sc.nextInt();
         String a = sc.next();
         String b = sc.next();
         sc.nextLine();
- 
-        // Prefix frequency arrays
-        int[][] freqA = new int[26][n + 1];
-        int[][] freqB = new int[26][n + 1];
- 
-        // Fill prefix frequency arrays
-        for (int i = 0; i < n; i++) {
-            char charA = a.charAt(i);
-            char charB = b.charAt(i);
-            freqA[charA - 'a'][i + 1] = 1;
-            freqB[charB - 'a'][i + 1] = 1;
+
+        int[][] prefA = new int[26][n + 1];
+        int[][] prefB = new int[26][n + 1];
+
+        for (int i = 1; i <= n; i++) {
+            int ca = a.charAt(i - 1) - 'a';
+            prefA[ca][i] = 1;
+            int cb = b.charAt(i - 1) - 'a';
+            prefB[cb][i] = 1;
         }
- 
-        // Build cumulative frequencies
+
+        // Now cummulate them
         for (int i = 1; i <= n; i++) {
             for (int j = 0; j < 26; j++) {
-                freqA[j][i] += freqA[j][i - 1];
-                freqB[j][i] += freqB[j][i - 1];
+                prefA[j][i] += prefA[j][i - 1];
+                prefB[j][i] += prefB[j][i - 1];
             }
         }
- 
+
         for (int i = 0; i < q; i++) {
-            int l = sc.nextInt() - 1; // Convert to 0-based index
+            int l = sc.nextInt();
             int r = sc.nextInt();
-            sc.nextLine();
- 
+
             int ans = 0;
- 
-            // Calculate frequencies for the range [l, r-1]
-            int[] countA = new int[26];
-            int[] countB = new int[26];
-            for (int j = 0; j < 26; j++) {
-                countA[j] = freqA[j][r] - freqA[j][l];
-                countB[j] = freqB[j][r] - freqB[j][l];
-            }
- 
-            // Compute the number of changes needed
-            for (int j = 0; j < 26; j++) {
-                if (countA[j] < countB[j]) {
-                    ans += countB[j] - countA[j];
+            for (int k = 0; k < 26; k++) {
+                int countA = prefA[k][r] - prefA[k][l - 1];
+                int countB = prefB[k][r] - prefB[k][l - 1];
+                if (countA < countB) {
+                    ans += countB - countA;
                 }
             }
- 
             System.out.println(ans);
+
         }
+        
     }
 
 	public static void main(String[] args) {
