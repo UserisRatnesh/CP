@@ -2,8 +2,10 @@ package Codeforces;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 
 // Solution is per test case
@@ -85,7 +87,7 @@ public class Round_963_Div_2 {
 	
 	
 	// Brute force, But giving TLE
-	public static void C(Scanner sc) {
+	public static void c(Scanner sc) {
         int n = sc.nextInt();
         int k = sc.nextInt();
 
@@ -93,36 +95,36 @@ public class Round_963_Div_2 {
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
-        Arrays.sort(arr);
 
-        boolean isOkay = false;
-        int tempK = 0;
+        Arrays.sort(arr);
+        int max = arr[n - 1];
+        int M = 2 * k;
+        // increase each value untill less than equal to max
+        for (int i = 0; i < n; i++) {
+            int d = (max - arr[i]) / M;
+            arr[i] += d * M;
+            assert (arr[i] <= max);
+        }
+        Arrays.sort(arr);
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (int i = 0; i < n; i++) {
+            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+            map.put(arr[i] + k, map.getOrDefault(arr[i] + k, 0) - 1);
+            map.put(arr[i] + 2 * k, map.getOrDefault(arr[i] + 2 * k, 0) + 1);
+            map.put(arr[i] + 3 * k, map.getOrDefault(arr[i] + 3 * k, 0) - 1);
+        }
 
         int ans = -1;
-
-        while (tempK < k) {
-            int start = arr[n - 1] + tempK;
-            int countOn = 0;
-            for (int i = 0; i < n; i++) {
-                int quo = (start - arr[i]) / k;
-                if (quo % 2 == 0) {
-                    countOn++;
-                }
-
-            }
-            tempK++;
-            if (countOn == n) {
-                ans = start;
-                isOkay = true;
+        int count = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            count += entry.getValue();
+            if (count == n) {
+                ans = entry.getKey();
                 break;
             }
         }
 
-        if (isOkay) {
-            System.out.println(ans);
-        } else {
-            System.out.println(-1);
-        }
+        System.out.println(ans);
 
     }
 
